@@ -19,9 +19,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        UserAccountsDrawerHeader(
-          accountEmail: null,
-          accountName: null,
+        DrawerHeader(
+          padding: EdgeInsets.zero,
+          child: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(image: AssetImage('images/icon.jpg'))),
+            child: null,
+          ),
         ),
         ListTile(
           title: Text("Kommentarer om dessa tjänster"),

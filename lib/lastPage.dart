@@ -3,9 +3,9 @@ import 'package:steam_wash_i_solna/endPage.dart';
 import 'drawer.dart';
 
 class LastPage extends StatefulWidget {
-  var name, desc, prices, lat, lng, date, code;
+  var name, desc, prices, lat, lng, date, code, phone;
   LastPage(this.name, this.desc, this.prices, this.lat, this.lng, this.date,
-      this.code);
+      this.code, this.phone);
   @override
   _LastPageState createState() => _LastPageState();
 }
@@ -27,6 +27,8 @@ class _LastPageState extends State<LastPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Colors.blueGrey[300],
+        shadowColor: Colors.grey,
       ),
       drawer: SizedBox(
         child: Drawer(
@@ -45,7 +47,7 @@ class _LastPageState extends State<LastPage> {
                     gradient: LinearGradient(
                         begin: Alignment.centerLeft,
                         end: Alignment.bottomRight,
-                        colors: [Colors.blue, Colors.lightBlueAccent])),
+                        colors: [Colors.blueGrey, Colors.grey])),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20, left: 20, right: 10),
                   child: Text(
@@ -77,14 +79,14 @@ class _LastPageState extends State<LastPage> {
                                   BorderRadius.all(Radius.circular(32)),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.lightBlueAccent, width: 1),
+                              borderSide:
+                                  BorderSide(color: Colors.blueGrey, width: 1),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(32)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.blueAccent, width: 2.0),
+                                  color: Colors.blueGrey, width: 2.0),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(32.0)),
                             ),
@@ -105,14 +107,14 @@ class _LastPageState extends State<LastPage> {
                                   BorderRadius.all(Radius.circular(32)),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.lightBlueAccent, width: 1),
+                              borderSide:
+                                  BorderSide(color: Colors.blueGrey, width: 1),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(32)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.blueAccent, width: 2.0),
+                                  color: Colors.blueGrey, width: 2.0),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(32.0)),
                             ),
@@ -133,14 +135,14 @@ class _LastPageState extends State<LastPage> {
                                   BorderRadius.all(Radius.circular(32)),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.lightBlueAccent, width: 1),
+                              borderSide:
+                                  BorderSide(color: Colors.blueGrey, width: 1),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(32)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.blueAccent, width: 2.0),
+                                  color: Colors.blueGrey, width: 2.0),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(32.0)),
                             ),
@@ -148,7 +150,7 @@ class _LastPageState extends State<LastPage> {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 30),
                         child: Material(
-                          color: Colors.lightBlueAccent,
+                          color: Colors.blueGrey[300],
                           borderRadius: BorderRadius.all(Radius.circular(30)),
                           elevation: 5,
                           child: MaterialButton(
@@ -185,7 +187,8 @@ class _LastPageState extends State<LastPage> {
                                           lt,
                                           lg,
                                           dt,
-                                          myCode)));
+                                          myCode,
+                                          widget.phone)));
                             },
                             minWidth: 250,
                             height: 45,

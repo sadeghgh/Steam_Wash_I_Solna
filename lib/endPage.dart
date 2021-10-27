@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:steam_wash_i_solna/returnPage.dart';
 
 class EndPage extends StatefulWidget {
-  String name, desc, prices, model, color, tag, lt, lg, dt, myCode;
+  String name, desc, prices, model, color, tag, lt, lg, dt, myCode, phone;
   EndPage(this.name, this.desc, this.prices, this.model, this.color, this.tag,
-      this.lt, this.lg, this.dt, this.myCode);
+      this.lt, this.lg, this.dt, this.myCode, this.phone);
   @override
   _EndPageState createState() => _EndPageState();
 }
 
 class _EndPageState extends State<EndPage> {
   String message = '', price = '', payment = '';
+  late String currentUserUid;
+  late String phone;
 
   void setCod() {
     double pric = double.parse(widget.prices);
@@ -47,6 +49,8 @@ class _EndPageState extends State<EndPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Colors.blueGrey[300],
+        shadowColor: Colors.grey,
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -61,7 +65,7 @@ class _EndPageState extends State<EndPage> {
                       gradient: LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.bottomRight,
-                          colors: [Colors.blue, Colors.lightBlueAccent])),
+                          colors: [Colors.blueGrey, Colors.grey])),
                   child: Column(
                     children: <Widget>[
                       Padding(
@@ -77,7 +81,7 @@ class _EndPageState extends State<EndPage> {
                         padding:
                             const EdgeInsets.only(top: 40, left: 10, right: 10),
                         child: Text(
-                          'Från ' + price + ' 00 kr',
+                          price + ' sek',
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
@@ -89,7 +93,7 @@ class _EndPageState extends State<EndPage> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Material(
-                  color: Colors.lightBlueAccent,
+                  color: Colors.blueGrey[300],
                   borderRadius: BorderRadius.all(Radius.circular(30)),
                   elevation: 5,
                   child: MaterialButton(
@@ -108,7 +112,8 @@ class _EndPageState extends State<EndPage> {
                                   widget.lt,
                                   widget.lg,
                                   widget.dt,
-                                  payment)));
+                                  payment,
+                                  widget.phone)));
                     },
                     minWidth: 250,
                     height: 45,
@@ -122,7 +127,7 @@ class _EndPageState extends State<EndPage> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Material(
-                  color: Colors.lightBlueAccent,
+                  color: Colors.blueGrey[300],
                   borderRadius: BorderRadius.all(Radius.circular(30)),
                   elevation: 5,
                   child: MaterialButton(
@@ -141,7 +146,8 @@ class _EndPageState extends State<EndPage> {
                                   widget.lt,
                                   widget.lg,
                                   widget.dt,
-                                  payment)));
+                                  payment,
+                                  widget.phone)));
                     },
                     minWidth: 250,
                     height: 45,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:steam_wash_i_solna/authenticationScreen.dart';
+import 'package:steam_wash_i_solna/auth_screen.dart';
 
 class ErrorAlertDialog extends StatelessWidget {
   final String message;
@@ -13,7 +13,7 @@ class ErrorAlertDialog extends StatelessWidget {
         ElevatedButton(
             onPressed: () {
               Route newRoute =
-                  MaterialPageRoute(builder: (context) => AutenticatinScreen());
+                  MaterialPageRoute(builder: (context) => AuthScreen());
               Navigator.pushReplacement(context, newRoute);
             },
             child: Center(

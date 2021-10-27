@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Steam Wash I Solna',
       theme: ThemeData(
-        primaryColor: Colors.blue,
+        primaryColor: Colors.blueGrey[300],
       ),
       home: SplashScreen(),
     );

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:steam_wash_i_solna/authenticationScreen.dart';
+import 'package:steam_wash_i_solna/auth_screen.dart';
 import 'package:steam_wash_i_solna/homeScreen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -37,8 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Route newRoute = MaterialPageRoute(builder: (context) => HomeScreen());
         Navigator.pushReplacement(context, newRoute);
       } else {
-        Route newRoute =
-            MaterialPageRoute(builder: (context) => AutenticatinScreen());
+        Route newRoute = MaterialPageRoute(builder: (context) => AuthScreen());
         Navigator.pushReplacement(context, newRoute);
       }
     });

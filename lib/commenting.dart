@@ -13,7 +13,7 @@ class Commenting extends StatefulWidget {
 class _CommentingState extends State<Commenting> {
   var _comment;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  late String currentUserUid;
+  late String currentUserUid, phone;
 
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   setTimer() {
@@ -30,7 +30,7 @@ class _CommentingState extends State<Commenting> {
         .collection('user')
         .doc(currentUserUid)
         .collection('comment')
-        .add({'author': currentUserUid, 'comment': com});
+        .add({'author': currentUserUid, 'comment': com, 'phone': phone});
     if (firestoreRef != null) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Ditt meddelande har skickats'),
@@ -41,32 +41,37 @@ class _CommentingState extends State<Commenting> {
             }),
         duration: const Duration(seconds: 5),
       ));
+      setTimer();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Ett fel uppstod! Var god försök igen'),
-        action: SnackBarAction(label: 'ångra', onPressed: () {}),
         duration: const Duration(seconds: 5),
       ));
     }
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setPhone();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var w = MediaQuery.of(context).size.width;
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
-      ),
-      drawer: SizedBox(
-        child: Drawer(
-          child: SafeArea(child: CustomDrawer()),
-        ),
+        backgroundColor: Colors.blueGrey[300],
+        shadowColor: Colors.grey,
       ),
       body: Center(
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+              padding: EdgeInsets.only(top: 30, left: 10, right: 10),
               child: Text(
                 "Du kan skriva din åsikt om våra tjänster",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -96,7 +101,7 @@ class _CommentingState extends State<Commenting> {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 30),
                         child: Material(
-                          color: Colors.lightBlueAccent,
+                          color: Colors.blueGrey[300],
                           borderRadius: BorderRadius.all(Radius.circular(30)),
                           elevation: 5,
                           child: MaterialButton(
@@ -123,5 +128,23 @@ class _CommentingState extends State<Commenting> {
         ),
       ),
     );
+  }
+
+  setPhone() {
+    currentUserUid = _auth.currentUser!.uid;
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(currentUserUid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        setState(() {
+          Map<String, dynamic>? user =
+              documentSnapshot.data() as Map<String, dynamic>?;
+
+          phone = user!['phone'];
+        });
+      }
+    });
   }
 }

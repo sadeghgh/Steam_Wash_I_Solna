@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:steam_wash_i_solna/functions.dart';
-import 'package:steam_wash_i_solna/map_page.dart';
+import 'package:steam_wash_i_solna/listPrice.dart';
 import 'package:steam_wash_i_solna/drawer.dart';
 
 class DescriptionPage extends StatefulWidget {
@@ -23,6 +23,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
         stream: FirebaseFirestore.instance
             .collection('selectionServices')
             .where('name', isEqualTo: widget.name)
+            .orderBy('comm')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -30,6 +31,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
               child: CircularProgressIndicator(),
             );
           }
+
           if (snapshot.hasData) {
             for (var point in snapshot.data!.docs) {
               var productItem = ProductServices(point['name'],
@@ -40,6 +42,8 @@ class _DescriptionPageState extends State<DescriptionPage> {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
+              backgroundColor: Colors.blueGrey[300],
+              shadowColor: Colors.grey,
             ),
             drawer: SizedBox(
               child: Drawer(
@@ -50,7 +54,8 @@ class _DescriptionPageState extends State<DescriptionPage> {
             body: Padding(
               padding: EdgeInsets.all(10),
               child: GridView.count(
-                crossAxisCount: 1,
+                crossAxisCount: 2,
+                childAspectRatio: (1 / 2),
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 15,
                 children: List.generate(_items.length, (int position) {
@@ -64,6 +69,64 @@ class _DescriptionPageState extends State<DescriptionPage> {
 }
 
 Card generateItem(ProductServices productServices, context) {
+  myCard() {
+    if (productServices.description == 'in och utvändigt') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Våt ångtvätt & torkning av :'),
+          Text('•	Däck och fälgar (utan däckglans)'),
+          Text('•	Fönster & speglar in och utvändig'),
+          Text('•	Invändig rengöring med torr ånga'),
+          Text('•	Dammsugning'),
+          Text('•	Rengöring av dörrkanter med ånga')
+        ],
+      );
+    } else if (productServices.description == 'Invändig') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Torr ångtvätt av :'),
+          Text('•	Dörrkanterna med ånga'),
+          Text('•	Fönster & speglar'),
+          Text('•	Dammsugning'),
+        ],
+      );
+    } else if (productServices.description == 'Motortvätt') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('•	Tvätt av  '),
+          Text('•	 motorrum med torr ånga'),
+          Text('•	Behandling av gummi & plastdetaljer'),
+        ],
+      );
+    } else if (productServices.description == 'Premiumtvätt') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('In-/utvändig detaljerad tvätt'),
+          Text('•	Rengöring av däck och fälgar  med däckglans'),
+          Text('•	Fönster & speglar in och utvändig'),
+          Text(
+              '• Invändig rengöring med torr ånga(ej innertak) Sätena får en djuprengörande'),
+          Text('•	Dammsugning'),
+          Text(
+              '• Rengöring av mattor AC rengöring Rengöring av dörrkanter med ånga')
+        ],
+      );
+    } else if (productServices.description == 'Utvändig') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Våt ångtvätt & torkning av :'),
+          Text('•	Fönster & speglar'),
+          Text('•	Däck och fälgar (utan däckglans)'),
+        ],
+      );
+    }
+  }
+
   return Card(
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -74,35 +137,35 @@ Card generateItem(ProductServices productServices, context) {
         String desc = productServices.description;
         String prices = productServices.price;
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => MapPage(name, desc, prices)));
+            builder: (context) => ListPrice(name, desc, prices)));
       },
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.all(10),
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+              padding: EdgeInsets.all(10),
+              child: Center(
                 child: Text(
                   productServices.description,
                   style: TextStyle(
-                      fontSize: 30,
+                      //fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
-                )),
-            Padding(
-                padding: EdgeInsets.all(10),
+                ),
+              )),
+          Padding(padding: EdgeInsets.only(left: 10), child: myCard()),
+          Padding(
+              padding: EdgeInsets.all(25),
+              child: Center(
                 child: Text(
-                  productServices.comm,
-                  style: TextStyle(fontSize: 16, color: Colors.black54),
-                )),
-            Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  'Från ' + productServices.price + '  00 kr',
-                  style: TextStyle(fontSize: 30, color: Colors.black87),
-                )),
-          ],
-        ),
+                  productServices.price + ' sek',
+                  style: TextStyle(
+                      //fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87),
+                ),
+              )),
+        ],
       ),
     ),
   );

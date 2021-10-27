@@ -36,17 +36,21 @@ class _HomeScreenState extends State<HomeScreen> {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
+              backgroundColor: Colors.blueGrey[300],
+              shadowColor: Colors.grey,
             ),
             drawer: SizedBox(
               child: Drawer(
-                child: SafeArea(child: CustomDrawer()),
+                child: SafeArea(
+                  child: CustomDrawer(),
+                ),
               ),
               width: w * 0.8,
             ),
             body: Padding(
               padding: EdgeInsets.all(10),
               child: GridView.count(
-                crossAxisCount: 1,
+                crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 15,
                 children: List.generate(_items.length, (int position) {
@@ -74,15 +78,16 @@ Card generateItem(ProductNameCar productNameCar, context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              width: 300,
-              height: 300,
-              child: Image.network(productNameCar.image),
+            Image.network(
+              productNameCar.image,
+              fit: BoxFit.contain,
+              width: 100.0,
+              height: 100.0,
             ),
             Text(
               productNameCar.name_car,
               style: TextStyle(
-                  fontSize: 30,
+                  //fontSize: 30,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),

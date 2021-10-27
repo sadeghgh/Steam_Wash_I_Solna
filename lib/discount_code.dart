@@ -36,12 +36,8 @@ class _DiscountCodeState extends State<DiscountCode> {
         return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-            ),
-            drawer: SizedBox(
-              child: Drawer(
-                child: SafeArea(child: CustomDrawer()),
-              ),
-              width: w * 0.8,
+              backgroundColor: Colors.blueGrey[300],
+              shadowColor: Colors.grey,
             ),
             body: Padding(
                 padding: EdgeInsets.all(10),
@@ -75,7 +71,7 @@ class _DiscountCodeState extends State<DiscountCode> {
                         subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Från ' + data['price'] + '  00 kr'),
+                            Text(data['price'] + ' sek'),
                             IconButton(
                               onPressed: () {
                                 FirebaseFirestore.instance

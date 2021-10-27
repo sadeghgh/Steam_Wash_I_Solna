@@ -6,9 +6,9 @@ import 'package:steam_wash_i_solna/homeScreen.dart';
 import 'package:flutter/services.dart';
 
 class ReturnPage extends StatefulWidget {
-  String name, desc, prices, model, color, tag, lt, lg, dt, payment;
+  String name, desc, prices, model, color, tag, lt, lg, dt, payment, phone;
   ReturnPage(this.name, this.desc, this.prices, this.model, this.color,
-      this.tag, this.lt, this.lg, this.dt, this.payment);
+      this.tag, this.lt, this.lg, this.dt, this.payment, this.phone);
   @override
   _ReturnPageState createState() => _ReturnPageState();
 }
@@ -19,7 +19,7 @@ class _ReturnPageState extends State<ReturnPage> {
   late String currentUserUid;
   late String cunt, order;
   late int iid;
-  var message;
+  var message, phone;
   setTimer() {
     Duration duration = Duration(seconds: 3);
     Timer(duration, () {
@@ -44,6 +44,8 @@ class _ReturnPageState extends State<ReturnPage> {
       key: _globalKey,
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Colors.blueGrey[300],
+        shadowColor: Colors.grey,
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -58,7 +60,7 @@ class _ReturnPageState extends State<ReturnPage> {
                       gradient: LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.bottomRight,
-                          colors: [Colors.blue, Colors.lightBlueAccent])),
+                          colors: [Colors.blueGrey, Colors.grey])),
                   child: Padding(
                     padding:
                         const EdgeInsets.only(top: 20, left: 20, right: 10),
@@ -76,7 +78,7 @@ class _ReturnPageState extends State<ReturnPage> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Material(
-                  color: Colors.lightBlueAccent,
+                  color: Colors.blueGrey,
                   borderRadius: BorderRadius.all(Radius.circular(30)),
                   elevation: 5,
                   child: MaterialButton(
@@ -118,6 +120,7 @@ class _ReturnPageState extends State<ReturnPage> {
       'car_tag': widget.tag,
       'payment_type': widget.payment,
       'doit': '0',
+      'phone': widget.phone,
       'startTime': Timestamp.fromDate(DateTime.now()),
     });
     if (firestoreRef != null) {
@@ -142,11 +145,10 @@ class _ReturnPageState extends State<ReturnPage> {
             }),
         duration: const Duration(seconds: 5),
       ));
-      //setTimer();
+      setTimer();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Det finns ett problem. Försök igen'),
-        action: SnackBarAction(label: 'ångra', onPressed: () {}),
         duration: const Duration(seconds: 5),
       ));
     }
