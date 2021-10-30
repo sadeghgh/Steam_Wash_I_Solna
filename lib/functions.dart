@@ -12,14 +12,11 @@ class ProductNameCar {
 class ProductServices {
   String _name;
   String _description;
-  String _comm;
   String _price;
 
-  ProductServices(this._name, this._description, this._comm, this._price);
+  ProductServices(this._name, this._description, this._price);
 
   String get price => _price;
-
-  String get comm => _comm;
 
   String get description => _description;
 

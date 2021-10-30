@@ -34,8 +34,8 @@ class _DescriptionPageState extends State<DescriptionPage> {
 
           if (snapshot.hasData) {
             for (var point in snapshot.data!.docs) {
-              var productItem = ProductServices(point['name'],
-                  point['description'], point['comm'], point['price']);
+              var productItem = ProductServices(
+                  point['name'], point['description'], point['price']);
               _items.add(productItem);
             }
           }
