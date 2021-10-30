@@ -23,7 +23,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
         stream: FirebaseFirestore.instance
             .collection('selectionServices')
             .where('name', isEqualTo: widget.name)
-            .orderBy('comm')
+            // .orderBy('comm')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
