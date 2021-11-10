@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm(
@@ -112,16 +111,17 @@ class _AuthFormState extends State<AuthForm> {
                       },
                     ),
                   if (!_isLogin)
-                    IntlPhoneField(
-                      decoration: InputDecoration(
-                        labelText: 'Telefon',
-                        // border: OutlineInputBorder(
-                        //   borderSide: BorderSide(),
-                        // ),
-                      ),
-                      initialCountryCode: 'SE',
+                    TextFormField(
+                      key: ValueKey('Telefon'),
+                      validator: (value) {
+                        if (value!.isEmpty || value.length < 10) {
+                          return 'Ange ditt kontaktnummer korrekt.';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(labelText: 'Telefon'),
                       onSaved: (value) {
-                        _phoneNr = value!.completeNumber;
+                        _phoneNr = value!;
                       },
                     ),
                   SizedBox(height: 12),

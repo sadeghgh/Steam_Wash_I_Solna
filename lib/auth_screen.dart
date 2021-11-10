@@ -74,7 +74,15 @@ class _AuthScreenState extends State<AuthScreen> {
           'time': DateTime.now()
         });
       }
-    } catch (e) {}
+    } on PlatformException catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
