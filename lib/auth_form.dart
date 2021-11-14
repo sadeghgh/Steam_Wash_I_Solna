@@ -119,6 +119,7 @@ class _AuthFormState extends State<AuthForm> {
                         }
                         return null;
                       },
+                      keyboardType: TextInputType.phone,
                       decoration: InputDecoration(labelText: 'Telefon'),
                       onSaved: (value) {
                         _phoneNr = value!;
